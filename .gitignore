@@ -1,0 +1,4 @@
+# Ignore sensitive token files and local config
+.openclaw/
+*.env
+*.secret
