@@ -1,0 +1,157 @@
+useProjects.js — Patch to pass start_date and end_date through insertProjectRow
+================================================================================
+
+CONTEXT
+-------
+The createProjectMutation's mutationFn receives form values from ProjectCreateModal.
+Two new fields — start_date and end_date — need to be destructured from the incoming
+values object and forwarded to insertProjectRow (the Supabase insert helper).
+
+
+CHANGE 1: Destructure start_date and end_date in the mutationFn
+----------------------------------------------------------------
+
+OLD:
+  mutationFn: async (values) => {
+    const {
+      title,
+      description,
+      timeline,
+      status,
+      cny,
+      inspiration,
+      imageFile,
+    } = values;
+
+    return insertProjectRow({
+      title,
+      description,
+      timeline,
+      status,
+      cny,
+      inspiration,
+      imageFile,
+      realm,
+      userId,
+    });
+  },
+
+NEW:
+  mutationFn: async (values) => {
+    const {
+      title,
+      description,
+      timeline,
+      status,
+      cny,
+      inspiration,
+      imageFile,
+      start_date,
+      end_date,
+    } = values;
+
+    return insertProjectRow({
+      title,
+      description,
+      timeline,
+      status,
+      cny,
+      inspiration,
+      imageFile,
+      start_date,
+      end_date,
+      realm,
+      userId,
+    });
+  },
+
+
+CHANGE 2: Update insertProjectRow to accept and insert the new columns
+----------------------------------------------------------------------
+(This function is typically in a separate db/api helper file, e.g. projectsApi.js
+or supabase/projects.js. Adjust accordingly.)
+
+OLD:
+  export async function insertProjectRow({
+    title,
+    description,
+    timeline,
+    status,
+    cny,
+    inspiration,
+    imageFile,
+    realm,
+    userId,
+  }) {
+    // ... image upload logic ...
+
+    const { data, error } = await supabase
+      .from("projects")
+      .insert({
+        title,
+        description,
+        timeline,
+        status,
+        cny,
+        inspiration,
+        image_url: imageUrl ?? null,
+        realm,
+        created_by: userId,
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
+
+NEW:
+  export async function insertProjectRow({
+    title,
+    description,
+    timeline,
+    status,
+    cny,
+    inspiration,
+    imageFile,
+    start_date,
+    end_date,
+    realm,
+    userId,
+  }) {
+    // ... image upload logic ...
+
+    const { data, error } = await supabase
+      .from("projects")
+      .insert({
+        title,
+        description,
+        timeline,
+        status,
+        cny,
+        inspiration,
+        image_url: imageUrl ?? null,
+        start_date: start_date || null,
+        end_date: end_date || null,
+        realm,
+        created_by: userId,
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
+
+
+NOTES
+-----
+- start_date and end_date are ISO date strings ("YYYY-MM-DD") or null/empty string.
+- The `|| null` guard converts empty strings to null so Supabase stores NULL, not "".
+- The Supabase column type should be `date` (nullable) — confirm in your schema.
+- If you use a Zod/yup schema for mutation input validation, add:
+    start_date: z.string().nullable().optional(),
+    end_date: z.string().nullable().optional(),
+- No migration is needed if the columns were already added via:
+    ALTER TABLE projects ADD COLUMN start_date date;
+    ALTER TABLE projects ADD COLUMN end_date date;
