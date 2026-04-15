@@ -8,493 +8,302 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --cream:  #f5efe6;
-      --cream2: #ede5d8;
-      --brown:  #5c3317;
+      --cream: #f5efe6;
+      --brown: #5c3317;
       --brown2: #7a4a28;
-      --gold:   #a07040;
-      --text:   #3a2410;
-      --muted:  #8a6a50;
+      --gold:  #a07040;
+      --muted: #8a6a50;
     }
-
     html { scroll-behavior: smooth; }
-
     body {
       background: var(--cream);
-      color: var(--text);
+      color: var(--brown);
       font-family: 'Jost', sans-serif;
       font-weight: 300;
       line-height: 1.7;
     }
 
-    /* ── NAV ── */
+    /* NAV */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 1rem 2.5rem;
-      background: rgba(245,239,230,0.88);
+      background: rgba(245,239,230,0.9);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(92,51,23,0.1);
+      border-bottom: 1px solid rgba(92,51,23,0.08);
     }
     .nav-logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      font-weight: 400;
-      letter-spacing: 0.22em;
-      color: var(--brown);
-      text-decoration: none;
-      text-transform: uppercase;
+      font-size: 1.1rem; font-weight: 400;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--brown); text-decoration: none;
     }
     .nav-order {
-      font-size: 0.62rem;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--cream);
-      background: var(--brown);
-      padding: 0.55rem 1.4rem;
-      border-radius: 100px;
-      text-decoration: none;
-      transition: background 0.2s;
+      font-size: 0.6rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--cream); background: var(--brown);
+      padding: 0.5rem 1.3rem; border-radius: 100px;
+      text-decoration: none; transition: background 0.2s;
     }
     .nav-order:hover { background: var(--brown2); }
 
-    /* ── HERO ── */
+    /* HERO */
     .hero {
-      position: relative;
-      height: 100svh;
-      min-height: 560px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-      padding: 2rem;
+      position: relative; height: 100svh; min-height: 560px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; overflow: hidden; padding: 2rem;
     }
     .hero-bg {
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background: url('header.jpg') center center / cover no-repeat;
-      transform: scale(1.08);
-      animation: zoomOut 12s ease forwards;
+      animation: zoomOut 14s ease forwards;
     }
     @keyframes zoomOut {
       from { transform: scale(1.08); }
       to   { transform: scale(1.0); }
     }
     .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(20,8,2,0.5) 0%,
-        rgba(20,8,2,0.25) 40%,
-        rgba(20,8,2,0.6) 100%
-      );
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(15,5,0,0.45) 0%, rgba(15,5,0,0.2) 35%, rgba(15,5,0,0.55) 100%);
     }
     .hero-content {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      animation: fadeUp 1.2s ease forwards;
-      opacity: 0;
-      animation-delay: 0.3s;
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center;
+      animation: fadeUp 1.2s ease 0.3s both;
     }
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(22px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+    /* logo sits above nav — give it top margin to clear nothing, it's z-index 2 over overlay */
     .hero-logo {
-      width: min(200px, 48vw);
-      height: min(200px, 48vw);
-      object-fit: cover;
-      border-radius: 50%;
-      margin-bottom: 2rem;
-      box-shadow: 0 0 0 1px rgba(245,239,230,0.2), 0 8px 40px rgba(0,0,0,0.4);
+      width: min(190px, 46vw); height: min(190px, 46vw);
+      object-fit: cover; border-radius: 50%;
+      margin-top: 2rem; margin-bottom: 1.8rem;
+      box-shadow: 0 0 0 1px rgba(245,239,230,0.25), 0 10px 50px rgba(0,0,0,0.45);
     }
     .hero-eyebrow {
-      font-size: 0.6rem;
-      font-weight: 500;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      color: rgba(245,239,230,0.65);
-      margin-bottom: 0.8rem;
+      font-size: 0.58rem; font-weight: 500;
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: rgba(245,239,230,0.6); margin-bottom: 0.7rem;
     }
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2.8rem, 7vw, 5rem);
-      font-weight: 300;
-      line-height: 1.05;
-      color: #fff;
+      font-weight: 300; line-height: 1.05; color: #fff;
       margin-bottom: 1.2rem;
     }
     .hero-sub {
-      font-size: 0.88rem;
-      color: rgba(245,239,230,0.72);
-      max-width: 360px;
-      margin: 0 auto 2.2rem;
-      line-height: 1.8;
+      font-size: 0.86rem; color: rgba(245,239,230,0.68);
+      max-width: 340px; margin: 0 auto 2rem; line-height: 1.8;
     }
     .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.65rem;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--brown);
-      background: var(--cream);
-      padding: 0.9rem 2.2rem;
-      border-radius: 100px;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.2s;
+      font-size: 0.63rem; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--brown); background: var(--cream);
+      padding: 0.9rem 2.2rem; border-radius: 100px;
+      text-decoration: none; transition: background 0.2s, transform 0.2s;
     }
-    .hero-cta:hover { background: var(--cream2); transform: translateY(-2px); }
+    .hero-cta:hover { background: #ede5d8; transform: translateY(-2px); }
     .hero-stock {
-      margin-top: 1.2rem;
-      font-size: 0.6rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(245,239,230,0.45);
+      margin-top: 1.2rem; font-size: 0.58rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(245,239,230,0.38);
     }
 
-    /* ── SPACER ── */
+    /* SPACER — all same seamless cream */
     .spacer { height: 5rem; background: var(--cream); }
-    .spacer-dark { height: 5rem; background: var(--cream2); }
 
-    /* ── STORY ── */
-    .story {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 560px;
-    }
-    .story-img {
-      background: url('story.jpg') center center / cover no-repeat;
-    }
+    /* STORY */
+    .story { display: grid; grid-template-columns: 1fr 1fr; min-height: 540px; }
+    .story-img { background: url('story.jpg') center center / cover no-repeat; }
     .story-text {
       padding: 5rem 4rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background: var(--cream2);
+      display: flex; flex-direction: column; justify-content: center;
+      background: var(--cream);
     }
     .section-label {
-      font-size: 0.58rem;
-      font-weight: 500;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.2rem;
-      display: block;
+      font-size: 0.56rem; font-weight: 500;
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.2rem; display: block;
     }
     .story-text h2 {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(1.8rem, 3vw, 2.6rem);
-      font-weight: 300;
-      color: var(--brown);
-      line-height: 1.15;
-      margin-bottom: 1.5rem;
+      font-weight: 300; color: var(--brown);
+      line-height: 1.15; margin-bottom: 1.5rem;
     }
     .story-text blockquote {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem;
-      font-style: italic;
+      font-size: 1.05rem; font-style: italic;
       color: var(--brown2);
       border-left: 2px solid var(--gold);
-      padding-left: 1.2rem;
-      line-height: 1.7;
-      margin-bottom: 1.5rem;
-      opacity: 0.88;
+      padding-left: 1.2rem; line-height: 1.7;
+      margin-bottom: 1.5rem; opacity: 0.88;
     }
-    .story-text p {
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.9;
-    }
+    .story-text p { font-size: 0.86rem; color: var(--muted); line-height: 1.9; }
 
-    /* ── BACKDROP PHOTO ── */
+    /* FARM BACKDROP */
     .farm-photo {
-      height: 460px;
+      height: 440px;
       background: url('backdrop.jpg') center 40% / cover no-repeat;
       position: relative;
     }
-    .farm-photo-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(20,8,2,0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .farm-overlay {
+      position: absolute; inset: 0;
+      background: rgba(15,5,0,0.38);
+      display: flex; align-items: center; justify-content: center;
     }
-    .farm-photo-text {
+    .farm-quote {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.4rem, 4vw, 2.4rem);
-      font-weight: 300;
-      font-style: italic;
+      font-size: clamp(1.3rem, 3.5vw, 2.2rem);
+      font-weight: 300; font-style: italic;
       color: rgba(245,239,230,0.88);
-      text-align: center;
-      padding: 0 2rem;
-      max-width: 560px;
-      line-height: 1.4;
+      text-align: center; padding: 0 2rem;
+      max-width: 540px; line-height: 1.45;
     }
 
-    /* ── PRODUCTS ── */
-    .products {
-      padding: 6rem 2rem;
-      background: var(--cream);
-      text-align: center;
-    }
-    .products-inner { max-width: 860px; margin: 0 auto; }
-    .products h2 {
+    /* PRODUCTS */
+    .products { padding: 6rem 2rem; background: var(--cream); }
+    .products-inner { max-width: 940px; margin: 0 auto; }
+    .products-header { text-align: center; margin-bottom: 3.5rem; }
+    .products-header h2 {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 300;
-      color: var(--brown);
-      margin-bottom: 0.5rem;
+      font-weight: 300; color: var(--brown); margin-bottom: 0.4rem;
     }
-    .products-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.8rem; }
-    .delivery-badge {
-      display: inline-block;
-      font-size: 0.6rem;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--cream);
-      background: var(--gold);
-      padding: 0.32rem 1rem;
-      border-radius: 100px;
-      margin-bottom: 3rem;
-    }
+    .products-sub { font-size: 0.82rem; color: var(--muted); }
 
-    /* product image — square, centred, modest size */
-    .product-photo-wrap {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 3rem;
+    /* Photo left, options right */
+    .product-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
     }
     .product-photo {
-      width: min(320px, 80vw);
-      height: min(320px, 80vw);
-      object-fit: cover;
-      border-radius: 16px;
-      box-shadow: 0 16px 50px rgba(92,51,23,0.13);
-      display: block;
+      width: 100%; aspect-ratio: 1 / 1;
+      object-fit: cover; border-radius: 16px;
+      box-shadow: 0 16px 50px rgba(92,51,23,0.12); display: block;
     }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
+    .product-options { display: flex; flex-direction: column; gap: 0; }
+    .product-option {
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(92,51,23,0.1);
     }
-    .product-card {
-      background: var(--cream2);
-      border: 1px solid rgba(92,51,23,0.1);
-      border-radius: 24px;
-      padding: 2.5rem 2rem;
-      text-align: center;
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-    .product-card:hover { transform: translateY(-4px); box-shadow: 0 16px 50px rgba(92,51,23,0.1); }
-    .product-card.featured { background: var(--brown); color: var(--cream); border-color: transparent; }
-    .product-icon { font-size: 2.8rem; margin-bottom: 1rem; display: block; }
-    .product-name {
+    .product-option:first-child { padding-top: 0; }
+    .product-option:last-child { border-bottom: none; }
+    .product-option-name {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 400;
-      color: inherit;
-      margin-bottom: 0.3rem;
+      font-size: 1.7rem; font-weight: 300;
+      color: var(--brown); margin-bottom: 0.15rem;
     }
-    .product-size {
-      font-size: 0.65rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
+    .product-option-size {
+      font-size: 0.58rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.7rem;
     }
-    .product-card.featured .product-size { color: rgba(245,239,230,0.55); }
-    .product-price {
+    .product-option-price {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem;
-      font-weight: 300;
-      color: var(--brown);
-      margin-bottom: 0.4rem;
+      font-size: 2rem; font-weight: 300;
+      color: var(--brown); margin-bottom: 0.25rem;
     }
-    .product-card.featured .product-price { color: var(--cream); }
-    .product-incl {
-      font-size: 0.62rem;
-      color: var(--gold);
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      margin-bottom: 1.8rem;
+    .product-option-incl {
+      font-size: 0.56rem; color: var(--gold);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 1.1rem;
     }
-    .product-card.featured .product-incl { color: rgba(255,200,100,0.85); }
     .product-btn {
       display: inline-block;
-      font-size: 0.62rem;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--cream);
-      background: var(--brown);
-      padding: 0.8rem 2rem;
-      border-radius: 100px;
-      text-decoration: none;
-      transition: background 0.2s;
+      font-size: 0.58rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--cream); background: var(--brown);
+      padding: 0.65rem 1.6rem; border-radius: 100px;
+      text-decoration: none; transition: background 0.2s;
     }
     .product-btn:hover { background: var(--brown2); }
-    .product-card.featured .product-btn { background: var(--cream); color: var(--brown); }
-    .product-card.featured .product-btn:hover { background: var(--cream2); }
 
-    /* gift banner */
-    .gift-banner {
-      max-width: 520px;
-      margin: 2.5rem auto 0;
-      background: linear-gradient(135deg, var(--brown), var(--brown2));
-      color: var(--cream);
-      border-radius: 20px;
-      padding: 1.8rem 2rem;
-      text-align: center;
-    }
-    .gift-banner .gift-icon { font-size: 2rem; margin-bottom: 0.4rem; display: block; }
-    .gift-banner h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      font-weight: 300;
-      margin-bottom: 0.3rem;
-    }
-    .gift-banner p { font-size: 0.8rem; opacity: 0.72; line-height: 1.6; }
-
-    /* ── THANK YOU / QUOTE ── */
-    .thankyou {
-      padding: 6rem 2rem;
-      background: var(--cream2);
-      text-align: center;
-    }
-    .thankyou-inner {
-      max-width: 620px;
-      margin: 0 auto;
-    }
+    /* THANK YOU */
+    .thankyou { padding: 6rem 2rem; background: var(--cream); text-align: center; }
+    .thankyou-inner { max-width: 600px; margin: 0 auto; }
     .thankyou h2 {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 300;
-      color: var(--brown);
-      margin-bottom: 2rem;
-      line-height: 1.2;
+      font-weight: 300; color: var(--brown);
+      margin-bottom: 2rem; line-height: 1.2;
     }
     .thankyou blockquote {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.05rem, 2.5vw, 1.3rem);
-      font-style: italic;
-      color: var(--brown2);
-      line-height: 1.75;
-      margin-bottom: 1.5rem;
-      opacity: 0.9;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-style: italic; color: var(--brown2);
+      line-height: 1.8; margin-bottom: 1.5rem; opacity: 0.9;
     }
     .thankyou-sig {
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      color: var(--gold);
-      text-transform: uppercase;
+      font-size: 0.68rem; letter-spacing: 0.14em;
+      color: var(--gold); text-transform: uppercase;
     }
 
-    /* ── ORDER CTA ── */
+    /* ORDER CTA */
     .order-section {
       padding: 7rem 2rem;
       background: url('backdrop.jpg') center center / cover no-repeat;
-      position: relative;
-      text-align: center;
+      position: relative; text-align: center;
     }
     .order-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(20,8,2,0.72);
+      position: absolute; inset: 0;
+      background: rgba(15,5,0,0.72);
     }
     .order-content { position: relative; z-index: 2; }
     .order-section h2 {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2.2rem, 5vw, 4rem);
-      font-weight: 300;
-      color: #fff;
-      margin-bottom: 0.8rem;
-      line-height: 1.1;
+      font-weight: 300; color: #fff;
+      margin-bottom: 0.8rem; line-height: 1.1;
     }
     .order-section p {
-      font-size: 0.88rem;
-      color: rgba(245,239,230,0.6);
+      font-size: 0.86rem; color: rgba(245,239,230,0.55);
       margin-bottom: 2.5rem;
-      max-width: 360px;
-      margin-left: auto;
-      margin-right: auto;
+      max-width: 340px; margin-left: auto; margin-right: auto;
     }
     .order-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.65rem;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--brown);
-      background: var(--cream);
-      padding: 1rem 2.5rem;
-      border-radius: 100px;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.2s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.63rem; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--brown); background: var(--cream);
+      padding: 1rem 2.5rem; border-radius: 100px;
+      text-decoration: none; transition: background 0.2s, transform 0.2s;
     }
-    .order-btn:hover { background: var(--cream2); transform: translateY(-2px); }
+    .order-btn:hover { background: #ede5d8; transform: translateY(-2px); }
     .order-stock {
-      margin-top: 1.5rem;
-      font-size: 0.6rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(245,239,230,0.35);
+      margin-top: 1.5rem; font-size: 0.58rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(245,239,230,0.3);
     }
 
-    /* ── FOOTER ── */
+    /* FOOTER */
     footer {
-      padding: 2.5rem 2rem;
-      text-align: center;
-      border-top: 1px solid rgba(92,51,23,0.1);
+      padding: 2.5rem 2rem; text-align: center;
+      border-top: 1px solid rgba(92,51,23,0.08);
       background: var(--cream);
     }
     .footer-logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--brown);
+      font-size: 1rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--brown);
       margin-bottom: 0.5rem;
     }
-    .footer-text { font-size: 0.72rem; color: var(--muted); }
+    .footer-text { font-size: 0.7rem; color: var(--muted); }
     .footer-text a { color: var(--brown); text-decoration: none; }
 
-    /* ── FADE IN ON SCROLL ── */
+    /* FADE IN ON SCROLL */
     .fade-in {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.85s ease, transform 0.85s ease;
     }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-    /* ── RESPONSIVE ── */
+    /* RESPONSIVE */
     @media (max-width: 700px) {
       nav { padding: 1rem 1.2rem; }
       .story { grid-template-columns: 1fr; }
@@ -503,7 +312,8 @@
       .farm-photo { height: 300px; }
       .products, .thankyou { padding: 4rem 1.2rem; }
       .order-section { padding: 5rem 1.5rem; }
-      .spacer, .spacer-dark { height: 3rem; }
+      .spacer { height: 3rem; }
+      .product-layout { grid-template-columns: 1fr; gap: 2rem; }
     }
   </style>
 </head>
@@ -540,16 +350,16 @@
       <blockquote>
         "I have undertaken organically rehabilitating 5,000 olive trees, after many years of neglect. Support me on this journey while I provide you with the finest Organic Extra Virgin Olive Oil for your enjoyment."
       </blockquote>
-      <p>Deep in the Swartberg Karoo, a forgotten olive grove is coming back to life — tree by tree, season by season. No chemicals. No shortcuts. Just patience, care, and a deep respect for nature's rhythm.</p>
+      <p>Deep in the Swartberg Karoo, a forgotten olive grove is coming back to life — tree by tree, season by season. No chemicals. No shortcuts. Just patience, care, and nature's rhythm.</p>
     </div>
   </section>
 
-  <div class="spacer-dark"></div>
+  <div class="spacer"></div>
 
-  <!-- FARM BACKDROP -->
+  <!-- BACKDROP -->
   <div class="farm-photo">
-    <div class="farm-photo-overlay">
-      <p class="farm-photo-text">"The land remembers. We are just here to listen."</p>
+    <div class="farm-overlay">
+      <p class="farm-quote">"The land remembers. We are just here to listen."</p>
     </div>
   </div>
 
@@ -558,45 +368,36 @@
   <!-- PRODUCTS -->
   <section class="products" id="products">
     <div class="products-inner">
-      <span class="section-label fade-in">Our Offering</span>
-      <h2 class="fade-in">5 Litre Olive Oil</h2>
-      <p class="products-sub fade-in">One exceptional oil. Two formats.</p>
-      <span class="delivery-badge fade-in">✓ Delivery Included</span>
-
-      <div class="product-photo-wrap fade-in">
+      <div class="products-header fade-in">
+        <span class="section-label">Our Offering</span>
+        <h2>5 Litre Olive Oil</h2>
+        <p class="products-sub">One exceptional oil. Two formats. Delivery included.</p>
+      </div>
+      <div class="product-layout fade-in">
         <img src="options.jpeg" alt="Samsara 5L Tin and Plastic" class="product-photo" />
-      </div>
-
-      <div class="product-grid fade-in">
-        <div class="product-card featured">
-          <span class="product-icon">🫙</span>
-          <div class="product-name">5L Tin</div>
-          <div class="product-size">Extra Virgin · Organic · Cold Pressed</div>
-          <div class="product-price">R1,800</div>
-          <div class="product-incl">Delivery included</div>
-          <a href="https://wa.me/27828244145?text=Hi%20Samsara!%20I%27d%20like%20to%20order%20a%205L%20TIN%20of%20Extra%20Virgin%20Organic%20Olive%20Oil%20please." class="product-btn" target="_blank" rel="noopener">Order via WhatsApp</a>
+        <div class="product-options">
+          <div class="product-option">
+            <div class="product-option-name">5L Tin</div>
+            <div class="product-option-size">Extra Virgin · Organic · Cold Pressed</div>
+            <div class="product-option-price">R1,800</div>
+            <div class="product-option-incl">✓ Delivery included</div>
+            <a href="https://wa.me/27828244145?text=Hi%20Samsara!%20I%27d%20like%20to%20order%20a%205L%20TIN%20of%20Extra%20Virgin%20Organic%20Olive%20Oil%20please." class="product-btn" target="_blank" rel="noopener">Order via WhatsApp</a>
+          </div>
+          <div class="product-option">
+            <div class="product-option-name">5L Plastic</div>
+            <div class="product-option-size">Extra Virgin · Organic · Cold Pressed</div>
+            <div class="product-option-price">R1,710</div>
+            <div class="product-option-incl">✓ Delivery included</div>
+            <a href="https://wa.me/27828244145?text=Hi%20Samsara!%20I%27d%20like%20to%20order%20a%205L%20PLASTIC%20of%20Extra%20Virgin%20Organic%20Olive%20Oil%20please." class="product-btn" target="_blank" rel="noopener">Order via WhatsApp</a>
+          </div>
         </div>
-        <div class="product-card">
-          <span class="product-icon">🍶</span>
-          <div class="product-name">5L Plastic</div>
-          <div class="product-size">Extra Virgin · Organic · Cold Pressed</div>
-          <div class="product-price">R1,710</div>
-          <div class="product-incl">Delivery included</div>
-          <a href="https://wa.me/27828244145?text=Hi%20Samsara!%20I%27d%20like%20to%20order%20a%205L%20PLASTIC%20of%20Extra%20Virgin%20Organic%20Olive%20Oil%20please." class="product-btn" target="_blank" rel="noopener">Order via WhatsApp</a>
-        </div>
-      </div>
-
-      <div class="gift-banner fade-in">
-        <span class="gift-icon">🎁</span>
-        <h3>Free Samsara Bottle</h3>
-        <p>Every 5L order includes a complimentary Samsara glass bottle — a little piece of the farm to keep.</p>
       </div>
     </div>
   </section>
 
-  <div class="spacer-dark"></div>
+  <div class="spacer"></div>
 
-  <!-- THANK YOU QUOTE -->
+  <!-- THANK YOU -->
   <section class="thankyou">
     <div class="thankyou-inner fade-in">
       <span class="section-label">From the Farmer</span>
@@ -631,18 +432,13 @@
     </p>
   </footer>
 
-  <!-- SCROLL FADE -->
   <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(el => {
-        if (el.isIntersecting) {
-          el.target.classList.add('visible');
-          observer.unobserve(el.target);
-        }
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
       });
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
   </script>
 
 </body>
