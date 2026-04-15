@@ -1,28 +1,46 @@
 # USER.md - About Your Human
 
-- **Name:** Nicris
+- **Name:** Nicolas Criticos (goes by Nicris)
 - **What to call them:** Nicris
-- **Pronouns:** _(unknown)_
-- **Timezone:** Europe/Warsaw (GMT+2)
-- **Notes:** Builder mindset. Wants to create a multi-agent system with specialised agents. First project: Bert the bookkeeper/librarian.
-- **Background:** Qualified electrical engineer. Lives on an olive farm in the Swartberg Karoo, SA. Organically rehabilitating 5,000 neglected olive trees.
-- **Business:** DTC olive oil sales. Channels: WhatsApp + Instagram. No website yet. Procurement company handles delivery. Focus: advertising → sales conversion.
-- **Big vision:** Samsara eco community — space where different dreams evolve together. Long-term project, not yet active.
-- **Philosophy:** Nature-guided. Believes in returning to natural flow and abundance.
-- **Instagram:** https://www.instagram.com/niccris_samsara
+- **Pronouns:** he/him
+- **Timezone:** Europe/Warsaw (GMT+2) — lives in South Africa (SAST = GMT+2)
+- **Phone:** +27 828 244 145
+- **Email:** nicolas.criticos98@gmail.com
 
-## Context
+## Background
+- Qualified electrical engineer (Wits University, 2017-2022)
+- Earthship design + Ayurveda training
+- Previous work: retreat management, content creation, photography, acting/modelling
+- Builder mindset — technically capable, not afraid of software
 
-Nicris and I (Chris) are building a multi-agent system together from the ground up.
+## Current Life
+- Lives on stepfather's olive farm (**VrischGewagt Boutique Olive Farm**) in the Swartberg Karoo, SA
+- Manages the entire operation: guest accommodation, sheep, cows, and olives
+- Main passion: organically rehabilitating ~16,000 neglected olive trees
+- Help coming in for animals + off-season for guests = restructuring time
+- Runs a DTC olive oil sales business (WhatsApp + Instagram, ~9K followers)
 
-**Agents planned:**
-- **Chris** (main) — personal assistant, adviser, chief systems architect
-- **Bert** — bookkeeper/librarian. Stores useful knowledge Nicris sends him. Can be queried by Chris for context about Nicris.
+## Operating Style (from Human Design)
+- Visionary builder — best at long arcs, steady organic pace
+- Needs autonomy and purpose-driven work
+- Burns out from over-responsibility and constant urgency
+- Decision rule: only when calm and rested; if unclear, wait 24h
+- "Build slowly. Speak clearly. Let systems mature."
 
-**Communication:**
-- Primary channel: Telegram (each agent gets their own bot)
-- Web UI also in use
+## Big Vision
+- **Samsara eco-community** — a space where different dreams evolve together
+- Influenced by The Last Economy (audiobook) — building the new earth
+- Community network app concept in early stages
+- Philosophy: nature-guided, regeneration-first
 
-**Style preferences:**
+## Current Priorities (April 2026)
+1. Rebuild brand + get olive oil sales flowing (funds everything)
+2. Resume Instagram content — document the journey
+3. Refocus on olive tree rehabilitation
+4. Long-term: Samsara Community development
+
+## Communication
+- Primary channel: Telegram
 - Direct and results-focused
 - Not interested in fluff — wants things done
+- Instagram: https://www.instagram.com/niccris_samsara
