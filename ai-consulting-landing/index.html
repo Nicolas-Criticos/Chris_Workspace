@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Symbiont — AI Systems for the Living Economy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0a;
+      --bg-elevated: #111111;
+      --bg-card: #161616;
+      --text: #f0ede8;
+      --text-muted: #8a8579;
+      --text-dim: #5a564e;
+      --accent: #c8b88a;
+      --accent-glow: rgba(200, 184, 138, 0.15);
+      --green: #7a9a6b;
+      --green-glow: rgba(122, 154, 107, 0.12);
+      --border: rgba(255, 255, 255, 0.06);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      text-align: center;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Grain overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── Ambient glow ── */
+    .glow-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .glow-orb.one {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(200,184,138,0.08), transparent 70%);
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      animation: float 20s ease-in-out infinite;
+    }
+    .glow-orb.two {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(122,154,107,0.06), transparent 70%);
+      bottom: 10%; right: -100px;
+      animation: float 25s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(30px); }
+    }
+
+    /* ── Layout ── */
+    section { position: relative; z-index: 1; }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10,10,10,0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+
+    .logo span {
+      font-weight: 400;
+      color: var(--text-muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      margin-left: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-cta {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 10px 24px;
+      border-radius: 100px;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: all 0.3s ease;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 140px 24px 100px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-glow);
+      border: 1px solid rgba(200,184,138,0.15);
+      padding: 8px 20px;
+      border-radius: 100px;
+      margin-bottom: 40px;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 28px;
+      max-width: 700px;
+      letter-spacing: -0.02em;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 14px 32px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+    }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.15); color: var(--text); }
+
+    /* ── Divider ── */
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.3;
+      margin: 0 auto;
+    }
+
+    /* ── Section styling ── */
+    .section {
+      padding: 120px 24px;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    .section-desc {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 60px;
+      line-height: 1.7;
+    }
+
+    /* ── Services grid ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      text-align: center;
+      transition: all 0.4s ease;
+    }
+    .service-card:hover {
+      border-color: rgba(200,184,138,0.15);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .service-icon {
+      width: 48px; height: 48px;
+      margin: 0 auto 20px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      background: var(--accent-glow);
+      border: 1px solid rgba(200,184,138,0.1);
+    }
+
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+
+    .service-card p {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── Philosophy ── */
+    .philosophy {
+      background: var(--bg-elevated);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .philosophy blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--text);
+      max-width: 600px;
+      margin: 0 auto 24px;
+      opacity: 0.9;
+    }
+
+    .philosophy .attribution {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Process ── */
+    .process-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      text-align: left;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(200,184,138,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .step-content h4 {
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .step-content p {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    /* ── Founders ── */
+    .founders-row {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      margin-top: 48px;
+    }
+
+    .founder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .founder-avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-glow), var(--green-glow));
+      border: 1px solid rgba(200,184,138,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--accent);
+    }
+
+    .founder h4 {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .founder p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    /* ── CTA Section ── */
+    .cta-section {
+      padding: 140px 24px;
+    }
+
+    .cta-section .section-title {
+      margin-bottom: 16px;
+    }
+
+    .cta-section .section-desc {
+      margin-bottom: 40px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Scroll animations ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .logo span { display: none; }
+      .hero { padding: 120px 20px 80px; }
+      .section { padding: 80px 20px; }
+      .cta-group { flex-direction: column; align-items: center; }
+      .founders-row { gap: 32px; }
+      .step { text-align: center; flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient orbs -->
+  <div class="glow-orb one"></div>
+  <div class="glow-orb two"></div>
+
+  <!-- Nav -->
+  <nav>
+    <div class="logo">Symbiont <span>Systems</span></div>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">Now accepting clients</div>
+    <h1>AI systems that <em>grow</em> with your business</h1>
+    <p class="hero-sub">
+      We design intelligent automation, agents, and workflows — 
+      built to feel natural, not forced. Technology in service of people.
+    </p>
+    <div class="cta-group">
+      <a href="#contact" class="btn btn-primary">Book a Discovery Call →</a>
+      <a href="#services" class="btn btn-ghost">See our services</a>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section class="section philosophy">
+    <div class="container reveal">
+      <blockquote>
+        "The best systems don't replace humans — they give humans back their time, their focus, and their edge."
+      </blockquote>
+      <p class="attribution">— The Symbiont Philosophy</p>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="section">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">What We Build</p>
+        <h2 class="section-title">Three ways we can help</h2>
+        <p class="section-desc">
+          Every business is different. We start with understanding yours, 
+          then design AI systems that actually fit.
+        </p>
+      </div>
+      <div class="services-grid reveal">
+        <div class="service-card">
+          <div class="service-icon">⚡</div>
+          <h3>Workflow Automation</h3>
+          <p>Eliminate repetitive tasks. We connect your tools, automate your processes, and free your team to do what matters.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🧠</div>
+          <h3>Custom AI Agents</h3>
+          <p>Intelligent assistants trained on your business. Customer support, internal ops, data analysis — agents that know your world.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🌱</div>
+          <h3>AI Strategy & Integration</h3>
+          <p>Not sure where to start? We audit your operations, identify high-impact opportunities, and build a roadmap that makes sense.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section" style="background: var(--bg-elevated); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">How It Works</p>
+        <h2 class="section-title">Simple. Intentional. Effective.</h2>
+        <p class="section-desc">
+          No bloated proposals. No six-month timelines. 
+          We move fast and build things that work.
+        </p>
+      </div>
+      <div class="process-steps reveal">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <h4>Discovery Call</h4>
+            <p>30 minutes. We listen, map your pain points, and identify where AI creates the most leverage.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <h4>Blueprint</h4>
+            <p>A clear, jargon-free plan showing exactly what we'll build, why, and what it'll cost.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <h4>Build & Deploy</h4>
+            <p>We build fast, iterate with you, and deploy systems that your team actually uses.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <h4>Evolve</h4>
+            <p>Systems grow. We offer ongoing support to refine, expand, and adapt as your business does.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founders -->
+  <section class="section">
+    <div class="container reveal">
+      <p class="section-label">Who We Are</p>
+      <h2 class="section-title">Two builders. One mission.</h2>
+      <p class="section-desc">
+        We come from opposite worlds — engineering and enterprise, 
+        farm and code — and that's exactly the point. 
+        We see what others miss.
+      </p>
+      <div class="founders-row">
+        <div class="founder">
+          <div class="founder-avatar">N</div>
+          <h4>Nicris</h4>
+          <p>Systems Architect & Strategist</p>
+        </div>
+        <div class="founder">
+          <div class="founder-avatar">+</div>
+          <h4>Co-Founder</h4>
+          <p>AI Engineer & Builder</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contact" class="cta-section">
+    <div class="container reveal">
+      <p class="section-label">Ready?</p>
+      <h2 class="section-title">Let's build something <em>intelligent</em></h2>
+      <p class="section-desc">
+        Book a free 30-minute discovery call. No pitch, no pressure — 
+        just an honest conversation about what's possible.
+      </p>
+      <a href="mailto:nicolas.criticos98@gmail.com?subject=Symbiont%20—%20Discovery%20Call" class="btn btn-primary">
+        Book a Discovery Call →
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Symbiont Systems. Built with intention.</p>
+  </footer>
+
+  <!-- Scroll reveal -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
